@@ -22,21 +22,23 @@ export class LoginComponent {
 
   proceedlogin() {
     if (this.loginform.valid) {
-      this.service.GetUserbyCode().subscribe(
+      const email = this.loginform.value.email;
+      const password = this.loginform.value.password;
+      this.service.GetUserbyCode(email, password).subscribe(
         (item: any) => {
           this.result = item;
           sessionStorage.setItem('userId', this.result.id);
           sessionStorage.setItem('username', this.result.email);
       
-          console.log('JWT Token:', this.result.jwtToken);
-          // Configurar o token JWT
-          this.service.setAuthToken(this.result.jwtToken);
-      
+          console.log('API Response:', this.result);
           // Navegar para a página principal ou outra página desejada
           this.router.navigate(['']);
         },
         (error) => {
           console.error('Error during login:', error);
+          if (error.error) {
+            console.error('Server Response:', error.error);
+          }
         }
       );
     } else {

@@ -24,10 +24,11 @@ export class AuthService {
   }
 
  //chamada de API usando o token de autorização
- GetUserbyCode() {
-  const headers = this.getHeaders();
-  return this.http.get(this.apiurl + '/user', { headers });
-}
+  GetUserbyCode(email: string, password: string) {
+    const body = { email: email, password: password };
+    return this.http.post(this.apiurl + '/login', body);
+  }
+
   Getall() {
     const headers = this.getHeaders();
     return this.http.get(this.apiurl + '/user', { headers });
