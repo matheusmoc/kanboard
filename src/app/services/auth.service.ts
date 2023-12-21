@@ -19,7 +19,6 @@ export class AuthService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.authToken}`
-      //3|J6pWg8KV0E74rzWcCSn4Azkb8RpstKxqdMEid19pd30b5ec7
     });
     return headers;
   }
