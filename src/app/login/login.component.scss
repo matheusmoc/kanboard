@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .example-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .example-full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .login-button-container {
+    margin-top: 20px;
+  }

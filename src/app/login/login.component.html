@@ -1,0 +1,27 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <mat-card class="login-card">
+    <mat-card-content>
+      <h2>Login</h2>
+    </mat-card-content>
+    <mat-card-content>
+      <form class="example-form" [formGroup]="loginform" (ngSubmit)="proceedlogin()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password">
+        </mat-form-field>
+        <div class="login-button-container">
+          <button mat-raised-button color="primary">Entrar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</body>
