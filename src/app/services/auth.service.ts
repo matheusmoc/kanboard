@@ -8,12 +8,43 @@ export class AuthService {
   private apiurl = 'https://mgrsolaris.com/api';
   private authToken: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  private isLoggedIn = false;
+  private userId: string | null = null;
+  private username: string | null = null;
 
-  // Método para configurar o token de autenticação
-  setAuthToken(token: string | null) {
-    this.authToken = token;
+  constructor(private http: HttpClient) {}
+
+  login() {
+    this.isLoggedIn = true;
   }
+
+  logout() {
+    this.isLoggedIn = false;
+    this.userId = null;
+    this.username = null;
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('username');
+  }
+
+  isAuthenticated() {
+    return this.isLoggedIn;
+  }
+
+  saveAuthInfo(userId: string, username: string) {
+    this.userId = userId;
+    this.username = username;
+    sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('username', username);
+  }
+
+  getSavedUserId(): string | null {
+    return this.userId || sessionStorage.getItem('userId');
+  }
+
+  getSavedUsername(): string | null {
+    return this.username || sessionStorage.getItem('username');
+  }
+
 
   private getHeaders(): HttpHeaders {
     let headers = new HttpHeaders({

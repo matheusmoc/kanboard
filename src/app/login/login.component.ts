@@ -21,28 +21,21 @@ export class LoginComponent {
   });
 
   proceedlogin() {
-    if (this.loginform.valid) {
-      const email = this.loginform.value.email;
-      const password = this.loginform.value.password;
-      this.service.GetUserbyCode(email, password).subscribe(
-        (item: any) => {
-          this.result = item;
-          sessionStorage.setItem('userId', this.result.id);
-          sessionStorage.setItem('username', this.result.email);
-      
-          console.log('API Response:', this.result);
-          // Navegar para a página principal ou outra página desejada
-          this.router.navigate(['']);
-        },
-        (error) => {
-          console.error('Error during login:', error);
-          if (error.error) {
-            console.error('Server Response:', error.error);
-          }
-        }
-      );
-    } else {
-      console.warn('Please enter valid data.');
+      if (this.loginform.valid) {
+        const email = this.loginform.value.email;
+        const password = this.loginform.value.password;
+        this.service.GetUserbyCode(email, password).subscribe(
+          (item: any) => {
+            this.result = item;
+            this.service.saveAuthInfo(this.result.id, this.result.email);
+            this.service.login();    
+            console.log('API Response:', this.result);
+            // Navegar para a página principal ou outra página desejada
+            this.router.navigate(['/']);
+          },
+        );
+      } else {
+        console.warn('Please enter valid data.');
+      }
     }
   }
-}
