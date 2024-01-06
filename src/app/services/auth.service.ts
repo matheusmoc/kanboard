@@ -12,7 +12,20 @@ export class AuthService {
   private userId: string | null = null;
   private username: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  private getHeaders(): HttpHeaders {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.authToken}`
+    });
+    return headers;
+  }
+
+  constructor(private http: HttpClient) {
+    // Recuperar informações de autenticação do localStorage ao iniciar o serviço
+    this.userId = localStorage.getItem('userId') || null;
+    this.username = localStorage.getItem('username') || null;
+    this.isLoggedIn = !!this.userId && !!this.username;
+  }
 
   login() {
     this.isLoggedIn = true;
@@ -22,8 +35,8 @@ export class AuthService {
     this.isLoggedIn = false;
     this.userId = null;
     this.username = null;
-    sessionStorage.removeItem('userId');
-    sessionStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('username');
   }
 
   isAuthenticated() {
@@ -33,25 +46,16 @@ export class AuthService {
   saveAuthInfo(userId: string, username: string) {
     this.userId = userId;
     this.username = username;
-    sessionStorage.setItem('userId', userId);
-    sessionStorage.setItem('username', username);
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('username', username);
   }
 
   getSavedUserId(): string | null {
-    return this.userId || sessionStorage.getItem('userId');
+    return this.userId;
   }
 
   getSavedUsername(): string | null {
-    return this.username || sessionStorage.getItem('username');
-  }
-
-
-  private getHeaders(): HttpHeaders {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.authToken}`
-    });
-    return headers;
+    return this.username;
   }
 
  //chamada de API usando o token de autorização
