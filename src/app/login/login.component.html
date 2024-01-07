@@ -8,6 +8,9 @@
     <mat-card-content>
       <h2>Login</h2>
     </mat-card-content>
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
     <mat-card-content>
       <form class="example-form" [formGroup]="loginform" (ngSubmit)="proceedlogin()">
         <mat-form-field class="example-full-width">

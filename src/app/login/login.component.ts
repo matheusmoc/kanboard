@@ -14,6 +14,7 @@ export class LoginComponent {
   }
 
   result: any;
+  error: string = ''; 
 
   loginform = this.builder.group({
     email: this.builder.control('', [Validators.required, Validators.email]),
@@ -33,9 +34,14 @@ export class LoginComponent {
             // Navegar para a página principal ou outra página desejada
             this.router.navigate(['/']);
           },
+          (error) => {
+            this.error = 'Invalid email or password. Please try again.';  // Defina a mensagem de erro
+            console.error('API Error:', error);
+          }
         );
       } else {
-        console.warn('Please enter valid data.');
+        this.error = 'Email ou senha inválidas, verifique as credenciais digitadas e tente novamente.';
+        console.warn('Email ou senha inválidas, verifique as credenciais digitadas e tente novamente.');
       }
     }
   }

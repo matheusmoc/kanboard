@@ -1,3 +1,5 @@
+@import '@angular/material/theming';
+
 body {
     display: flex;
     align-items: center;
@@ -25,4 +27,13 @@ body {
 
   .login-button-container {
     margin-top: 20px;
+  }
+
+  .error-message {
+    background-color: mat-color($mat-red, 100); 
+    color: mat-color($mat-red, 800); 
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid mat-color($mat-red, 600); 
+    border-radius: 4px; 
   }
