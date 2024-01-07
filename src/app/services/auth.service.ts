@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -43,19 +44,17 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
-  saveAuthInfo(userId: string, username: string) {
+  saveAuthInfo(user: string, userId: string, username: string) {
     this.userId = userId;
     this.username = username;
     localStorage.setItem('userId', userId);
     localStorage.setItem('username', username);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getSavedUserId(): string | null {
-    return this.userId;
-  }
-
-  getSavedUsername(): string | null {
-    return this.username;
+  getSavedUser(): any | null {
+    const userString = localStorage.getItem('user');
+    return userString ? JSON.parse(userString) : null;
   }
 
  //chamada de API usando o token de autorização
