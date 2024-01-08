@@ -19,9 +19,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     const authenticatedUser = this.authService.getSavedUser();
-    // Acessa o nome do usuário
     this.userName = authenticatedUser ? authenticatedUser.name : 'N/A';
-    console.log('Nome do usuário:', this.userName);
+    //console.log('Nome do usuário:', this.userName);
   }
 
   logout(): void {

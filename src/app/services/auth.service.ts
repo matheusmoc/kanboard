@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,7 @@ export class AuthService {
   private authToken: string | null = null;
 
   private isLoggedIn = false;
-  private userId: string | null = null;
-  private username: string | null = null;
+  private user: string | null = null;
 
   private getHeaders(): HttpHeaders {
     let headers = new HttpHeaders({
@@ -23,10 +21,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     // Recuperar informações de autenticação do localStorage ao iniciar o serviço
-    this.userId = localStorage.getItem('userId') || null;
-    this.username = localStorage.getItem('username') || null;
-    this.isLoggedIn = !!this.userId && !!this.username;
+    this.user = sessionStorage.getItem('user') || null;
+    this.isLoggedIn = !!this.user;
   }
+  
 
   login() {
     this.isLoggedIn = true;
@@ -34,26 +32,20 @@ export class AuthService {
 
   logout() {
     this.isLoggedIn = false;
-    this.userId = null;
-    this.username = null;
-    localStorage.removeItem('userId');
-    localStorage.removeItem('username');
+    this.user = null;
+    sessionStorage.removeItem('user');
   }
 
   isAuthenticated() {
     return this.isLoggedIn;
   }
 
-  saveAuthInfo(user: string, userId: string, username: string) {
-    this.userId = userId;
-    this.username = username;
-    localStorage.setItem('userId', userId);
-    localStorage.setItem('username', username);
-    localStorage.setItem('user', JSON.stringify(user));
+  saveAuthInfo(user: string) {
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   getSavedUser(): any | null {
-    const userString = localStorage.getItem('user');
+    const userString = sessionStorage.getItem('user');
     return userString ? JSON.parse(userString) : null;
   }
 

@@ -28,15 +28,17 @@ export class LoginComponent {
         this.service.GetUserbyCode(email, password).subscribe(
           (item: any) => {
             this.result = item;
-            this.service.saveAuthInfo(this.result.user, this.result.id, this.result.email);
+            this.service.saveAuthInfo(this.result.user);
+            console.log()
             this.service.login();    
-            console.log('API Response:', this.result);
-            // Navegar para a página principal ou outra página desejada
+            //console.log('API Response:', this.result);
             this.router.navigate(['/']);
           },
           (error) => {
-            this.error = 'Invalid email or password. Please try again.';  // Defina a mensagem de erro
+            this.error = 'Invalid email or password. Please try again.'; 
+            console.warn('Email ou senha inválidas, verifique as credenciais digitadas e tente novamente.');
             console.error('API Error:', error);
+
           }
         );
       } else {
