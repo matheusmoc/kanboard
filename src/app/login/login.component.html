@@ -11,6 +11,9 @@
     <div *ngIf="error" class="error-message">
       {{ error }}
     </div>
+    <div *ngIf="!error" class="success-message">
+      Utilize as credenciais do <b>MGR Solaris</b>
+    </div>
     <mat-card-content>
       <form class="example-form" [formGroup]="loginform" (ngSubmit)="proceedlogin()">
         <mat-form-field class="example-full-width">

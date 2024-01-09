@@ -37,3 +37,11 @@ body {
     border: 1px solid mat-color($mat-red, 600); 
     border-radius: 4px; 
   }
+  .success-message {
+    background-color: mat-color($mat-blue, 100); 
+    color: mat-color($mat-blue, 800); 
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid mat-color($mat-blue, 600); 
+    border-radius: 4px; 
+  }
